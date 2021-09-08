@@ -1,7 +1,10 @@
-.dll
-.CFG
-.LOG
-.exe
-.piv
-rescomp
-.pdf
+/mg-gl_64.dll
+/API Description_0_1.pdf
+/mg-ui_64.dll
+/mgx_64.dll
+/mgxMM_64.dll
+/rescomp
+/stDHS_Emulator_64.exe
+/stDHS_Emulator.CFG
+/stDHS_Emulator.LOG
+/uvid_data.piv
