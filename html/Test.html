@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SPICAtek / Remote Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="jquery/jquery-3.6.0.min.js"></script>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="basic-styles.css">
+</head>
+<body>
+    <div class="col-md-6 col-sm-6">    
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>op/sys</h4></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-4"><a href="#" class="btn btn-danger center-block pcmd" data-target="op/sys" data-cmd="terminate" data-par="">TERMINATE</a></div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <script>
+    $('.pcmd').on('click',function(e){
+        const xhr = new XMLHttpRequest();
+        var json = JSON.stringify({cmd: e.target.dataset.cmd, par: e.target.dataset.par})
+
+        console.log(json)
+
+        xhr.open('POST',e.target.dataset.target,true); // localhost:80/index/system/station1/dhs1/playback --> json ({cmd = play , par = })
+        xhr.send(json);
+    });
+    </script> 
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+  <head>
+     <meta charset="utf-8"/>
+     <title>SPICAtek / Remote Control</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link href="bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+     <script src="bootstrap5/js/bootstrap.min.js"></script>
+     <script src="jquery/jquery-3.6.0.min.js"></script>
+     <link rel="stylesheet" href="basic-styles.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-css navbar-dark p-3">
+        <img src="spica-logo.png" class="img-rounded" alt="SPICAtek's Logo" style="width:10%"/>
+        <ul class="navbar-nav">
+            <li>
+                <a class="nav-link text-light pcmd" data-target="system/station1/dhs1" data-cmd="mode" data-par="playback"href="#">Playback</a>
+            </li>
+            <li>
+                <a class="nav-link text-light pcmd" data-target="system/station1/dhs1" data-cmd="mode" data-par="setup"href="#">Setup</a>
+            </li>
+            <li>
+                <a class="nav-link text-light pcmd" data-target="system/station1/dhs1" data-cmd="mode" data-par="record"href="#">Record</a>
+            </li>
+            <li>
+                <a class="nav-link text-light pcmd" href="#" data-target="system/station1/dhs1" data-cmd="info" data-par="">Info</a>
+            </li>
+            <li style="float: right;">
+                <a href="#" class="btn btn-danger center-block pcmd" data-target="op/sys" data-cmd="terminate" data-par="">TERMINATE</a>
+            </li>
+        </ul>
+        </nav>
+        <header class="p-3 mx-3 text-black">
+        </header>
+        <main>
+        <section>
+        </section>
+        </main>
+        <div class="container p-3 my-3 bg-dark" width="100">
+            <div class="btn-group p-2">
+                <button type="button" href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="play" data-par="1000">Play</button>
+                <button type="button" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="stop" data-par="">Stop</button>
+            </div>
+            <br>
+            <div class="btn-group p-2">
+                <button type="button" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="first" data-par="">firt</button>
+                <button type="button" ref="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="prev" data-par="10">Prev</button>
+                <button type="button" href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="next" data-par="10">Next</button>
+                <button type="button" href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="last" data-par="">Last</button>
+            </div>
+            <br>
+        <input type="range" class="form-range" id="customRange1">
+        </div>
+        <script>
+            $('.pcmd').on('click',function(e){
+                console.log("cmd:"+ e.target.dataset.cmd+", par:" +e.target.dataset.par);
+                fetch(e.target.dataset.target, {  // localhost:80/index/system/station1/dhs1/playback --> json ({cmd = play , par = })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cmd: e.target.dataset.cmd, par: e.target.dataset.par}),	
+                })
+                .then(response => response.json())
+                .then(data => {console.log('Success:', data);
+                })
+                .catch((error) => {console.error('Error:', error);
+                });
+            });
+        </script>
+   </body>
+</html>

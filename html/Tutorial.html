@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SPICAtek / Remote Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="jquery/jquery-3.6.0.min.js"></script>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="basic-styles.css">
+</head>
+<body>
+				                
+<div class="col-md-6 col-sm-6">
+			
+	<div class="panel panel-default">
+		<div class="panel-heading"><h4>Logo</h4></div>
+		<img src="spica-logo.png" class="img-rounded" alt="SPICAtek's Logo" style="width:50%"/>
+	</div> 
+
+	  
+	<div class="panel panel-default">
+		<div class="panel-heading"><h4>op Tests</h4></div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="op" data-cmd="testcmd1" data-par="testparameter1">Test 1</a></div>
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="op" data-cmd="testcmd2" data-par="testparameter2">Test 2</a></div>
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="op" data-cmd="testcmd3" data-par="testparameter3">Test 3</a></div>
+			</div>
+		</div>
+	</div> 
+
+	<div class="panel panel-default">
+		<div class="panel-heading"><h4>Device Modes</h4></div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1" data-cmd="mode" data-par="setup">Setup</a></div>
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1" data-cmd="mode" data-par="record">Record</a></div>
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1" data-cmd="mode" data-par="playback">Playback</a></div>
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1" data-cmd="info" data-par="">Playback</a></div>
+			</div>
+		</div>
+	</div> 
+
+	<div class="panel panel-default">
+		<div class="panel-heading"><h4>Playback</h4></div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="play" data-par="200">Play</a></div>
+					<div class="col-xs-4"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="stop" data-par="">Stop</a></div>
+					</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-3"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="first" data-par="">First</a></div>
+					<div class="col-xs-3"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="prev" data-par="10">Prev</a></div>
+					<div class="col-xs-3"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="next" data-par="10">Next</a></div>
+					<div class="col-xs-3"><a href="#" class="btn btn-primary center-block pcmd" data-target="system/station1/dhs1/playback" data-cmd="last" data-par="">Last</a></div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<label for="video" class="form-label">Seek to normalized value</label>
+					<input type="range" class="form-range" min="0" max="1000" id="seek_norm">
+				</div>
+			</div>
+		</div>
+	</div> 
+
+	<div class="panel panel-default">
+		<div class="panel-heading"><h4>op/sys</h4></div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-4"><a href="#" class="btn btn-danger center-block pcmd" data-target="op/sys" data-cmd="terminate" data-par="">TERMINATE</a></div>
+			</div>
+		</div>
+	</div> 
+
+</div>		
+
+<script>
+
+$('.pcmd').on('click',function(e){
+	console.log(e.target.dataset.target);
+	fetch(e.target.dataset.target, {  // localhost:80/index/system/station1/dhs1/playback --> json ({cmd = play , par = })
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ cmd: e.target.dataset.cmd, par: e.target.dataset.par}),	
+	})
+	.then(response => response.json())
+	.then(data => {console.log('Success:', data);
+	})
+	.catch((error) => {console.error('Error:', error);
+	});
+});
+
+$('#seek_norm').on('change',function(e){
+
+	fetch('system/station1/dhs1/playback', {
+		
+		method: 'POST',
+		headers: {
+		'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ cmd: "seek_norm", par: e.target.value/1000.0 }),
+		
+	})
+	.then(response => response.json())
+	.then(data => {console.log('Success:', data);
+	})
+	.catch((error) => {console.error('Error:', error);
+	});
+
+});
+
+
+</script>
+
+</body>
+</html>
