@@ -1,23 +1,40 @@
+body{
+    background-color:#0000009f;
+}
+
 .btn, .form-control, .panel, .list-group, .well {
     border-radius: 1px;
     box-shadow: 0 0 0;
-}
-
-.panel .panel-heading {
-    background-color: #FFFFFF;
-    border-color: #FFFFFF;
-    color: #262626;
-    font-size: 16px;
-    font-weight: 700;
 }
 
 .panel .panel-heading a {
     font-size: 11px;
     font-weight: 400;
 }
+
 .logo {
     width: 50%;
 }
+
 .bg-css{
-    background-color: #2861B0;
+    background-color: #3a3c3f85;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link{
+    color: white;
+    background-color: orange;
+}
+
+.nav-link{
+    color: orange;
+}
+
+.nav-link:hover, .nav-link:focus{
+    color: rgb(248, 211, 0);
+}
+
+.form-range {
+    background-color: black;
+    background: linear-gradient(to right, white 10%, red 11% 12%, white 13% 39%, red 40% 42%, white 43% 62%, red 63% 65%, white 66% 71%, red 72% 74%, white 75% 84%, red 85% 87%, white 88% 100% );
 }
