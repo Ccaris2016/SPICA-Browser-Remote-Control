@@ -26,7 +26,7 @@
         </ul>
     </nav>
     <div class="row">
-        <div  class="col-sm bg-dark" style="overflow-y: scroll; height: 400px;" width="100">
+        <div  class="col-sm bg-dark" style="overflow-y: scroll; height: 200px;" width="100">
             <h6>Stations</h6>
             <div id="buttons_station">
             </div>
@@ -45,16 +45,22 @@
                 <button type="button" href="#" class="btn btn-outline-warning pcmd"  data-cmd="last" data-par="">Last</button>
             </div>
             <br>
-        <input type="range" class="form-range" id="seek_norm">
         </div>
         <div class="col-sm bg-dark">
-            <div id="parameters_list" style="overflow-y: scroll; height: 400px;">
+            <div id="parameters_list" style="overflow-y: scroll; height: 200px;"> 
             </div>
         </div>
     </div>
-        <div style="float: right">
-            <a href="#" class="btn btn-danger center-block pcmd" data-target="op/sys" data-cmd="terminate" data-par="">TERMINATE</a>
+    <div class="row">
+        <div class="col">
+            <div style="height: 200px;">
+                <div class="top-bar"></div>
+                <div class="boton-bar" id = "timeline">
+                    <div class="line"></div>
+                </div>
+            </div>
         </div>
-        <script src="js/sConnetion.js"></script>
+    </div>
+    <script src="js/sConnetion.js"></script>
    </body>
 </html>

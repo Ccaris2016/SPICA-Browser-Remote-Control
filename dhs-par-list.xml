@@ -1,0 +1,48 @@
+<st-parlist>
+	<par id="width" name="ROI Width" type="integer" lo="1" hi="4096" access="rw" value="1920"/>
+	<par id="height" name="ROI Height" type="integer" lo="1" hi="4096" access="rw" value="1080"/>
+	<par id="left" name="ROI Left" type="integer" lo="0" hi="4096" access="rw" value="0"/>
+	<par id="right" name="ROI Right" type="integer" lo="0" hi="4096" access="rw" value="0"/>
+	<par id="fps" name="Framerate" type="float" lo="0" hi="1000000" access="rw" value="100"/>
+	<par id="exp" name="Exposure" type="float" lo="1" hi="1000000" access="rw" value="1000"/>
+	<par id="gain" name="Sensor Gain" type="float" lo="1" hi="100" access="rw" value="1"/>
+	<par id="wb-red" name="White balance Red" type="float" lo="0" hi="1" access="rw" value="0.2"/>
+	<par id="wb-blue" name="White balance Blue" type="float" lo="0" hi="1" access="rw" value="0.4"/>
+	<par id="img-br" name="Brightness" type="float" lo="0" hi="1" access="rw" value="0"/>
+	<par id="img-co" name="Contrast" type="float" lo="0" hi="1" access="rw" value="0"/>
+	<par id="img-sat" name="Saturation" type="float" lo="0" hi="1" access="rw" value="0"/>
+	<par id="img-gain" name="Gain" type="float" lo="0" hi="100" access="rw" value="1"/>
+	<par id="img-gamma" name="Gamma" type="float" lo="0" hi="3" access="rw" value="0"/>
+	<par id="cam-shutter" name="Camera Shutter" type="msel" access="rw" value="0">
+		<opt>Rolling</opt>
+		<opt>Global</opt>
+		<opt>Bright Field</opt>
+	</par>
+	<par id="cam-trigger" name="Camera Trigger" type="msel" access="rw" value="0">
+		<opt>Internal</opt>
+		<opt>GPIO0</opt>
+		<opt>GPIO1</opt>
+		<opt>GPIO2</opt>
+		<opt>GPIO3</opt>
+	</par>
+	<par id="cam-fan" name="Camera Fan" type="bool" access="rw" value="false"/>
+	<par id="cam-lights" name="Camera Lights" type="bool" access="rw" value="false"/>
+	<par id="cam-rst-time" name="Camera Reset Timestamp" type="cmd" access="rw"/>
+	<par id="cam-bref-add" name="Black Reference Add" type="cmd" access="rw"/>
+	<par id="cam-bref-del" name="Black Reference Delete" type="cmd" access="rw"/>
+	<par id="cam-reset-spooler" name="Reset Spooler" type="cmd" access="rw"/>
+	<par id="cam-tones" name="Camera Tone Curves" type="msel" access="rw" value="0">
+		<opt>1.00</opt>
+		<opt>1.25</opt>
+		<opt>1.60</opt>
+		<opt>2.00</opt>
+		<opt>2.50</opt>
+		<opt>3.20</opt>
+		<opt>4.00</opt>
+		<opt>5.00</opt>
+	</par>
+	<par id="location" name="Location" type="string" access="rw" value=""/>
+	<par id="comments" name="Comments" type="string" access="rw" value=""/>
+	
+</st-parlist>
+
