@@ -14,13 +14,26 @@ for (var i = 0; i<100;i++){
 		time_line.appendChild(timediv)
 	}else{
 		var numbottom = 90 + (30*i)
-		var numtop = i
 		var timediv = document.createElement("div")
 		timediv.className = "mid-line"
 		timediv.style = "left: " + i.toString() + "%; bottom:" + numbottom.toString()+"%; height: 40%;" 
 		time_line.appendChild(timediv)
 	}
 }
+
+$('.info').on('click',function(e){
+	fetch(target, { 
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ cmd: "info", par:""}),	
+	})
+	.then(response => response.json())
+	.then(data => {console.log('Success:', data);
+	})
+
+});
 
 $.getJSON(uri_station, function(data) {
 	var myDiv = document.getElementById("buttons_station")
@@ -142,6 +155,11 @@ function parlist(){
 				for(x=0;x<data.parlist[i].opt.length;x++){
 					let radio = document.createElement("input")
 					let labelRad = document.createElement("label")
+					if(x==data.parlist[i].value){
+						console.log(data.parlist[i].value)
+						radio.checked=true
+					}
+					radio.name = "Radio"
 					radio.type="radio"
 					radio.value = x
 					labelRad.innerHTML = data.parlist[i].opt[x]
@@ -151,7 +169,28 @@ function parlist(){
 				subDiv.appendChild(form);
 			}
 			//BOOL
-			else{
+
+			if (data.parlist[i].type == "bool" ){
+				if(data.parlist[i].value){
+					inp.checked=true
+				}
+				inp.type = "checkbox"
+				inp.id = data.parlist[i].id
+				subDiv.appendChild(br)
+				subDiv.appendChild(inp)
+			}
+			//CMD
+			if (data.parlist[i].type == "cmd" ){
+				inp.type = "button"
+				inp.id = data.parlist[i].id
+				inp.className = inp.className +" boton_cmd";
+				subDiv.appendChild(br)
+				subDiv.appendChild(inp)
+			}
+
+			if (data.parlist[i].type == "string" ){
+				inp.type = "text"
+				inp.id = data.parlist[i].id
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
 				subDiv.appendChild(labelValue)
@@ -161,6 +200,7 @@ function parlist(){
 }
 
 $('.pcmd').on('click',function(e){
+	console.log(target+mode)
     fetch(target+mode, { 
         method: 'POST',
         headers: {
@@ -172,8 +212,9 @@ $('.pcmd').on('click',function(e){
     .then(data => {console.log('Success:', data);
     })
     .catch((error) => {console.error('Error:', error);
-    });
+	});
 });
+
 $('#seek_norm').on('change',function(e){
 	fetch(target+mode, {
 
@@ -200,7 +241,7 @@ $('.change-value').on('click',function(e){
 		headers: {
 		'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ value: 5000.0 }),
+		body: JSON.stringify({ value: 0}),
 
 	})
 	.then(data => {console.log('Success:', data);
