@@ -1,39 +1,38 @@
-var target = "";
+var target = "system/station1/dhs1";
 var mode = "/playback";
 var uri_station = "system/stations";
 var uri_parameters = "";
 
 var time_line = document.getElementById("timeline")
 
-for (var i = 0; i<100;i++){
-	if (i%2 == 0){
-		var numbottom = 100 + (30*i)
-		var timediv = document.createElement("div")
-		timediv.className = "mid-line"
-		timediv.style = "left: " + i.toString() + "%; bottom:" + numbottom.toString()+"%"
-		time_line.appendChild(timediv)
-	}else{
-		var numbottom = 90 + (30*i)
-		var timediv = document.createElement("div")
-		timediv.className = "mid-line"
-		timediv.style = "left: " + i.toString() + "%; bottom:" + numbottom.toString()+"%; height: 40%;" 
-		time_line.appendChild(timediv)
-	}
-}
-
-$('.info').on('click',function(e){
-	fetch(target, { 
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ cmd: "info", par:""}),	
-	})
-	.then(response => response.json())
-	.then(data => {console.log('Success:', data);
-	})
-
-});
+// for (var i = 0; i<100;i++){
+// 	if (i%2 == 0){
+// 		var numbottom = 100 + (30*i)
+// 		var timediv = document.createElement("div")
+// 		timediv.className = "mid-line"
+// 		timediv.style = "left: " + i.toString() + "%; bottom:" + numbottom.toString()+"%"
+// 		time_line.appendChild(timediv)
+// 	}else{
+// 		var numbottom = 90 + (30*i)
+// 		var timediv = document.createElement("div")
+// 		timediv.className = "mid-line"
+// 		timediv.style = "left: " + i.toString() + "%; bottom:" + numbottom.toString()+"%; height: 40%;" 
+// 		time_line.appendChild(timediv)
+// 	}
+// }
+setInterval(function(){ 	fetch(target, { 
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({ cmd: "info", par:""}),	
+})
+.then(function(response) {
+	return response.json();
+  })
+  .then(function(jsonResponse) {
+	console.log(jsonResponse)
+}); }, 500);
 
 $.getJSON(uri_station, function(data) {
 	var myDiv = document.getElementById("buttons_station")
@@ -127,6 +126,7 @@ function parlist(){
 				subDiv.appendChild(inp)
 				subDiv.appendChild(labelValue)
 			}
+
 			//FLOAT
 			if (data.parlist[i].type == "float" ){
 				inp.type = "range"
@@ -149,6 +149,7 @@ function parlist(){
 				subDiv.appendChild(labelValue)
 
 			}
+
 			//LISTAS
 			if (data.parlist[i].type == "msel" ){
 				let form = document.createElement("form")
@@ -168,8 +169,8 @@ function parlist(){
 				}
 				subDiv.appendChild(form);
 			}
-			//BOOL
 
+			//BOOL
 			if (data.parlist[i].type == "bool" ){
 				if(data.parlist[i].value){
 					inp.checked=true
@@ -179,6 +180,7 @@ function parlist(){
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
 			}
+
 			//CMD
 			if (data.parlist[i].type == "cmd" ){
 				inp.type = "button"
@@ -188,6 +190,7 @@ function parlist(){
 				subDiv.appendChild(inp)
 			}
 
+			//TEXT
 			if (data.parlist[i].type == "string" ){
 				inp.type = "text"
 				inp.id = data.parlist[i].id
@@ -198,41 +201,6 @@ function parlist(){
 		}
 	});
 }
-
-$('.pcmd').on('click',function(e){
-	console.log(target+mode)
-    fetch(target+mode, { 
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cmd: e.target.dataset.cmd, par: e.target.dataset.par}),
-    })
-    .then(response => response.json())
-    .then(data => {console.log('Success:', data);
-    })
-    .catch((error) => {console.error('Error:', error);
-	});
-});
-
-$('#seek_norm').on('change',function(e){
-	fetch(target+mode, {
-
-		method: 'POST',
-		headers: {
-		'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ cmd: "seek_norm", par: e.target.value/100.0 }),
-
-
-	})
-	.then(response => response.json())
-	.then(data => {console.log('Success:', data);
-	})
-	.catch((error) => {console.error('Error:', error);
-	});
-
-});
 
 $('.change-value').on('click',function(e){
 	fetch(target+"/par/fps", {
@@ -248,13 +216,4 @@ $('.change-value').on('click',function(e){
 	})
 	.catch((error) => {console.error('Error:', error);
 	});
-});
-
-$('.mode').on('click',function(e){
-    mode = e.target.dataset.target;
-});
-
-$('.range_par').on('input',function(e){
-    var label = "hello world"
-	console.log(label)
 });

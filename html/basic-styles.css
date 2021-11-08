@@ -80,3 +80,6 @@ h6{
     width: 50%;
     height: 10%;
 }
+canvas{
+    background-color: black;
+}
