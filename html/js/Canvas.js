@@ -1,5 +1,7 @@
-var hRes = 1400
+var hRes = $(this).width()
 var wRes = 150
+var x = (fIndex/(fTotal / hRes))
+var point = 0;
 
 var PIXEL_RATIO = (function () {
     var ctx = document.createElement("canvas").getContext("2d"),
@@ -34,17 +36,77 @@ var myCanvas = createHiDPICanvas(hRes, wRes);
 div_row.appendChild(myCanvas)
 
 var ctx = myCanvas.getContext("2d");
-ctx.fillStyle = "grey";
-ctx.beginPath();
-for (let x = 0 ; x < hRes ; x++){
-    if (x%16 == 0){
-        ctx.fillRect(x,110,1,40);
+
+var elemLeft = myCanvas.offsetLeft
+var elemTop = myCanvas.offsetTop
+
+
+setInterval(() => {
+    x = (fIndex/(fTotal / hRes))
+    ctx.clearRect(0,30,myCanvas.width, myCanvas.height);
+    drawTime();
+    moveLine();
+}, 10);
+
+function drawTime(){
+    ctx.fillStyle = "grey";
+    ctx.beginPath();
+    for (let x = 0 ; x < hRes ; x++){
+        if (x%16 == 0){
+            ctx.fillRect(x,110,1,40);
+        }
+        if (x%32 == 0){
+            ctx.fillRect(x,100,1,50);
+        }
     }
-    if (x%32 == 0){
-        ctx.fillRect(x,100,1,50);
-    }
+    ctx.fill(); 
 }
-ctx.fill(); 
+myCanvas.addEventListener('click', function(event) {
+    x = event.pageX - elemLeft
+    var proporcion = (x*(fTotal / hRes))
+    point = (proporcion*100)/fTotal
+    console.log()
+    changeFps();
+}, false);
+
+function moveLine(){
+    ctx.beginPath();
+    ctx.fillStyle = "red";
+    ctx.arc(x+2, 50, 10, 0, 2 * Math.PI);
+    ctx.fillRect(x,50,5,400);
+    ctx.fill();
+}
+
+function changeFps(){
+	fetch(target+mode, {
+		
+		method: 'POST',
+		headers: {
+		'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ cmd: "seek_norm", par:point/100}),
+		
+	})
+	.then(response => response.json())
+	.then(data => {console.log('Success:', data);
+	})
+	.catch((error) => {console.error('Error:', error);
+	});
+}
+
+function mark(){
+    ctx.beginPath();
+    ctx.fillStyle = "green";
+    ctx.arc(x, 20, 10, 0, 2 * Math.PI);
+    ctx.fill();
+}
+function clear(){
+    ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
+    ctx.beginPath();
+    ctx.fill(); 
+}
+
+
 
 //Create canvas with a custom resolution.
 //var myCustomCanvas = createHiDPICanvas(500, 200, 4);
