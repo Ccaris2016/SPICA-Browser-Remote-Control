@@ -160,6 +160,7 @@ function parlist(){
 						console.log(data.parlist[i].value)
 						radio.checked=true
 					}
+					radio.id = data.parlist[i].opt[x]
 					radio.name = "Radio"
 					radio.type="radio"
 					radio.value = x
