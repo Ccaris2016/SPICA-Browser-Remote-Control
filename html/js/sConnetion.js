@@ -82,15 +82,15 @@ function parlist(){
 			var br = document.createElement("br")
 			try{
 				var dBtn = document.getElementById(data.parlist[i].id);
-				var dLabel = document.getElementById(data.parlist[i].id + " label")
+				var dLabel = document.getElementById(data.parlist[i].id + " label");
 				
 				var dDiv = document.getElementById(data.parlist[i].id +" div");
 
 				var inprad = document.getElementById(data.parlist[i].id+" inp_rad");
-				var dLabelRad = document.getElementById(data.parlist[i].id + " label_rad")
+				var dLabelRad = document.getElementById(data.parlist[i].id + " label_rad");
 
 				var dSubDiv = document.getElementById(data.parlist[i].id +" div_rad");
-
+				myDiv.removeChild(dDiv);
 				dSubDiv.removeChild(inprad);
 				dSubDiv.removeChild(dLabelRad);
 
@@ -99,9 +99,10 @@ function parlist(){
 				dDiv.removeChild(dBtn);
 				dDiv.removeChild(dLabel);
 				
-				myDiv.removeChild(dDiv);
 				
-			}catch{
+				
+			}catch(err){
+				console.log(err)
 			}
 			subDiv.className ="btn-group-lg";
 			subDiv.id = data.parlist[i].id+" div"
