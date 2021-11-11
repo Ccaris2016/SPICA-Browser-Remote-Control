@@ -109,8 +109,8 @@ function parlist(){
 				inp.type = "number"
 				inp.max = data.parlist[i].range.hi;
 				inp.min = data.parlist[i].range.lo;
-				label.innerHTML	 = data.parlist[i].name
 				label.id = data.parlist[i].id + " label";
+				inp.onchange = function(e) { ChangeValue(e) }
 				inp.value = data.parlist[i].value;
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
@@ -127,9 +127,9 @@ function parlist(){
 				inp.onchange = function(e){
 					var Label = document.getElementById(e.target.id+"label")
 					Label.innerHTML = e.target.value
+					ChangeValue(e);
 				}
 				inp.value = data.parlist[i].value;
-				label.innerHTML	 = data.parlist[i].name
 				label.id = data.parlist[i].id + " label";
 				labelValue.innerHTML = data.parlist[i].value;
 				labelValue.id = data.parlist[i].id + "label"
@@ -153,10 +153,12 @@ function parlist(){
 					radio.id = data.parlist[i].opt[x]
 					radio.name = "Radio"
 					radio.type="radio"
+					radio.id = data.parlist[i].id
 					radio.value = x
 					labelRad.innerHTML = data.parlist[i].opt[x]
 					form.appendChild(radio);
 					form.appendChild(labelRad)
+					form.onchange = function (e) { ChangeValue(e) }
 				}
 				subDiv.appendChild(form);
 			}
@@ -168,6 +170,7 @@ function parlist(){
 				}
 				inp.type = "checkbox"
 				inp.id = data.parlist[i].id
+				inp.onchange = function (e) { ChangeValue(e) }
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
 			}
@@ -177,6 +180,7 @@ function parlist(){
 				inp.type = "button"
 				inp.id = data.parlist[i].id
 				inp.className = inp.className +" boton_cmd";
+				inp.innerHTML = data.parlist[i].name;
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
 			}
@@ -185,6 +189,7 @@ function parlist(){
 			if (data.parlist[i].type == "string" ){
 				inp.type = "text"
 				inp.id = data.parlist[i].id
+				inp.onchange = function (e) { ChangeValue(e) }
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
 				subDiv.appendChild(labelValue)
