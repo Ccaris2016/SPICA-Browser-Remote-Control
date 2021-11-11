@@ -4,24 +4,26 @@ var uri_station = "system/stations";
 var uri_parameters = "";
 var fIndex = 0;
 var fTotal = 0;
-
+var timeout;
 var time_line = document.getElementById("timeline")
 
-
-setInterval(function(){ 	fetch(target, { 
-	method: 'POST',
-	headers: {
-		'Content-Type': 'application/json',
-	},
-	body: JSON.stringify({ cmd: "info", par:""}),	
-})
-.then(function(response) {
-	return response.json();
-  })
-  .then(function(jsonResponse) {
-	fIndex = jsonResponse.fri;
-	fTotal = jsonResponse.frc;
-}); }, 100);
+function getInfo() {
+	fetch(target, { 
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ cmd: "info", par:""}),	
+	})
+	.then(function(response) {
+		return response.json();
+	  })
+	  .then(function(jsonResponse) {
+		fIndex = jsonResponse.fri;
+		fTotal = jsonResponse.frc;
+	});
+    timeout = setTimeout(getInfo,500);
+}
 
 $.getJSON(uri_station, function(data) {
 	var myDiv = document.getElementById("buttons_station")
@@ -29,15 +31,14 @@ $.getJSON(uri_station, function(data) {
 		let btn = document.createElement("button")
 		var subDiv = document.createElement("div")
 		var br = document.createElement("br")
-
 		btn.innerHTML = data.station[i].id;
 		btn.className ="btn btn-outline-warning station";
 		btn.dataset.target= "system/" + data.station[i].id + "/" + data.station[i].dhs[0].id;
 		btn.onclick = function(){
 			target = btn.dataset.target;
 			parlist();
+			getInfo();
 		}
-
 		subDiv.className ="btn-group-lg";
 		subDiv.id = data.station[i].id +" div"
 
@@ -87,11 +88,7 @@ function parlist(){
 				
 				dDiv.removeChild(dBtn);
 				dDiv.removeChild(dLabel);
-				
-				
-				
 			}catch(err){
-				console.log(err)
 			}
 			subDiv.className ="btn-group-lg";
 			subDiv.id = data.parlist[i].id+" div"
@@ -116,7 +113,6 @@ function parlist(){
 				subDiv.appendChild(inp)
 				subDiv.appendChild(labelValue)
 			}
-
 			//FLOAT
 			if (data.parlist[i].type == "float" ){
 				inp.type = "range"
@@ -139,7 +135,6 @@ function parlist(){
 				subDiv.appendChild(labelValue)
 
 			}
-
 			//LISTAS
 			if (data.parlist[i].type == "msel" ){
 				let form = document.createElement("form")
@@ -147,7 +142,6 @@ function parlist(){
 					let radio = document.createElement("input")
 					let labelRad = document.createElement("label")
 					if(x==data.parlist[i].value){
-						console.log(data.parlist[i].value)
 						radio.checked=true
 					}
 					radio.id = data.parlist[i].opt[x]
@@ -189,6 +183,7 @@ function parlist(){
 			if (data.parlist[i].type == "string" ){
 				inp.type = "text"
 				inp.id = data.parlist[i].id
+				inp.value = data.parlist[i].value
 				inp.onchange = function (e) { ChangeValue(e) }
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
@@ -197,4 +192,3 @@ function parlist(){
 		}
 	});
 }
-

@@ -34,10 +34,6 @@ body{
     color: rgb(248, 211, 0);
 }
 
-.form-range {
-    background-color: black;
-    background: linear-gradient(to right, white 10%, red 11% 12%, white 13% 39%, red 40% 42%, white 43% 62%, red 63% 65%, white 66% 71%, red 72% 74%, white 75% 84%, red 85% 87%, white 88% 100% );
-}
 
 label{
     color: white;
@@ -47,6 +43,7 @@ h6{
 }
 .station{
     width: 420px;
+    color: white;
 }
 
 .top-bar{
@@ -82,4 +79,12 @@ h6{
 }
 canvas{
     background-color: black;
+}
+.pcmd{
+    color: white;
+    background-color: orange;
+}
+.canvas{
+    position: relative;
+    left: 3%;
 }

@@ -26,7 +26,16 @@ $('.range_par').on('input',function(e){
 function ChangeValue(e){
     var val = e.target.value;
     if (e.target.type == "number") {
-        val = parseInt(e.target.value);
+        if(e.target.value > e.target.max){
+            val = parseInt(e.target.max)
+        }
+        else if (e.target.value < e.target.min){
+            val = parseInt(e.target.min);
+        }
+        else{
+            val = parseInt(e.target.value);
+        }
+        
     }
     if (e.target.type == "range") {
         val = parseFloat(e.target.value);

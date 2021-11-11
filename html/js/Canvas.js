@@ -1,6 +1,6 @@
-var hRes = $(this).width()
+var hRes = $(window).width()-100
 var wRes = 150
-var x = (fIndex/(fTotal / hRes))
+var x = (fIndex/fTotal)*(hRes-11-11)
 var point = 0;
 
 var PIXEL_RATIO = (function () {
@@ -21,6 +21,7 @@ createHiDPICanvas = function(w, h, ratio) {
     var can = document.createElement("canvas");
     can.width = w * ratio;
     can.height = h * ratio;
+    can.className = "canvas"
     can.style.width = w + "px";
     can.style.height = h + "px";
     can.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -29,8 +30,6 @@ createHiDPICanvas = function(w, h, ratio) {
 
 var div_row = document.getElementById("div_canvas")
 
-
-//Create canvas with the device resolution.
 var myCanvas = createHiDPICanvas(hRes, wRes);
 
 div_row.appendChild(myCanvas)
@@ -40,13 +39,20 @@ var ctx = myCanvas.getContext("2d");
 var elemLeft = myCanvas.offsetLeft
 var elemTop = myCanvas.offsetTop
 
+myCanvas.addEventListener('click', function(event) {
+    x = event.pageX - elemLeft
+    console.log(elemLeft)
+    var proporcion = ((x-11)/(hRes-11-11))*fTotal
+    point = (proporcion*100)/fTotal
+    changeFps();
+}, false);
 
-setInterval(() => {
-    x = (fIndex/(fTotal / hRes))
+setInterval(() => {e
+    x = (fIndex/fTotal)*(hRes)
     ctx.clearRect(0,30,myCanvas.width, myCanvas.height);
     drawTime();
     moveLine();
-}, 10);
+}, 100);
 
 function drawTime(){
     ctx.fillStyle = "grey";
@@ -61,13 +67,6 @@ function drawTime(){
     }
     ctx.fill(); 
 }
-myCanvas.addEventListener('click', function(event) {
-    x = event.pageX - elemLeft
-    var proporcion = (x*(fTotal / hRes))
-    point = (proporcion*100)/fTotal
-    console.log()
-    changeFps();
-}, false);
 
 function moveLine(){
     ctx.beginPath();
@@ -101,12 +100,5 @@ function mark(){
     ctx.fill();
 }
 function clear(){
-    ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
-    ctx.beginPath();
-    ctx.fill(); 
+    console.log("hola");
 }
-
-
-
-//Create canvas with a custom resolution.
-//var myCustomCanvas = createHiDPICanvas(500, 200, 4);
