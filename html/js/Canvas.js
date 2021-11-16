@@ -1,6 +1,6 @@
-var hRes = $(window).width()-100
+var hRes = $(this).width()
 var wRes = 150
-var x = (fIndex/fTotal)*(hRes-11-11)
+var x = (fIndex/fTotal)*(hRes-11-11) // fps -> pixel
 var point = 0;
 
 var PIXEL_RATIO = (function () {
@@ -21,7 +21,6 @@ createHiDPICanvas = function(w, h, ratio) {
     var can = document.createElement("canvas");
     can.width = w * ratio;
     can.height = h * ratio;
-    can.className = "canvas"
     can.style.width = w + "px";
     can.style.height = h + "px";
     can.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -29,30 +28,17 @@ createHiDPICanvas = function(w, h, ratio) {
 }
 
 var div_row = document.getElementById("div_canvas")
-
 var myCanvas = createHiDPICanvas(hRes, wRes);
-
 div_row.appendChild(myCanvas)
-
 var ctx = myCanvas.getContext("2d");
-
 var elemLeft = myCanvas.offsetLeft
-var elemTop = myCanvas.offsetTop
 
-myCanvas.addEventListener('click', function(event) {
-    x = event.pageX - elemLeft
-    console.log(elemLeft)
-    var proporcion = ((x-11)/(hRes-11-11))*fTotal
-    point = (proporcion*100)/fTotal
-    changeFps();
-}, false);
-
-setInterval(() => {e
-    x = (fIndex/fTotal)*(hRes)
+setInterval(() => {
+    x = (fIndex/fTotal)*(hRes-11-11) 
     ctx.clearRect(0,30,myCanvas.width, myCanvas.height);
     drawTime();
     moveLine();
-}, 100);
+}, 500);
 
 function drawTime(){
     ctx.fillStyle = "grey";
@@ -67,6 +53,12 @@ function drawTime(){
     }
     ctx.fill(); 
 }
+myCanvas.addEventListener('click', function(event) {
+    x = event.pageX - elemLeft
+    var proporcion = ((x-11)/(hRes-11-11))*fTotal // pixel -> fps
+    point = (proporcion*100)/fTotal 
+    changeFps();
+}, false);
 
 function moveLine(){
     ctx.beginPath();
@@ -100,5 +92,7 @@ function mark(){
     ctx.fill();
 }
 function clear(){
-    console.log("hola");
+    ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
+    ctx.beginPath();
+    ctx.fill(); 
 }

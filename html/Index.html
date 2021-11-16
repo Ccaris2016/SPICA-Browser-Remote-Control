@@ -31,7 +31,7 @@
             <div id="buttons_station">
             </div>
         </div>
-        <div class="col-sm bg-dark">
+        <div class="col-sm bg-dark" style="overflow-y: scroll; height: 200px;" width="100">
             <h6>Controles</h6>
             <div class="btn-group-lg" role="group">
                 <button type="button" href="#" class="btn btn-outline-warning pcmd"  data-cmd="play" data-par="1">Play</button>
@@ -45,6 +45,11 @@
                 <button type="button" href="#" class="btn btn-outline-warning pcmd"  data-cmd="last" data-par="">Last</button>
             </div>
             <br>
+            <div class="btn-group-lg" role="group">
+                <button type="button" href="#" onclick="mark()" class="btn btn-outline-warning">Mark</button>
+                <button type="button" href="#" onclick="clear()" class="btn btn-outline-warning">Delete</button>
+            </div>
+            <br>
         </div>
         <div class="col-sm bg-dark">
             <div id="parameters_list" style="overflow-y: scroll; height: 200px;"> 
@@ -53,8 +58,6 @@
     </div>
     <div class="row" id="div_canvas">
     </div>
-    <button type="button" href="#" onclick="mark()" class="btn btn-outline-warning">Mark</button>
-    <button type="button" href="#" onclick="clear()" class="btn btn-outline-warning">Mark</button>
     <script src="js/sConnetion.js"></script>
     <script src="js/Buttons.js"></script>
     <script src="js/Canvas.js"></script>

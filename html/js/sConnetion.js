@@ -111,7 +111,6 @@ function parlist(){
 				inp.value = data.parlist[i].value;
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
-				subDiv.appendChild(labelValue)
 			}
 			//FLOAT
 			if (data.parlist[i].type == "float" ){
@@ -187,7 +186,6 @@ function parlist(){
 				inp.onchange = function (e) { ChangeValue(e) }
 				subDiv.appendChild(br)
 				subDiv.appendChild(inp)
-				subDiv.appendChild(labelValue)
 			}
 		}
 	});

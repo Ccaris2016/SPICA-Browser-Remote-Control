@@ -1,5 +1,4 @@
 $('.pcmd').on('click',function(e){
-	console.log(target+mode)
     fetch(target+mode, { 
         method: 'POST',
         headers: {
@@ -18,11 +17,6 @@ $('.mode').on('click',function(e){
     mode = e.target.dataset.target;
 });
 
-$('.range_par').on('input',function(e){
-    var label = "hello world"
-	console.log(label)
-});
-
 function ChangeValue(e){
     var val = e.target.value;
     if (e.target.type == "number") {
@@ -35,7 +29,6 @@ function ChangeValue(e){
         else{
             val = parseInt(e.target.value);
         }
-        
     }
     if (e.target.type == "range") {
         val = parseFloat(e.target.value);
