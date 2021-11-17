@@ -31,13 +31,23 @@ var ctx = myCanvas.getContext("2d");
 var elemLeft = myCanvas.offsetLeft
 
 function clearRC(){
-    ctx.clearRect(0,0,myCanvas.width,30)
+    ctx.clearRect(0,0,myCanvas.width,30) // limpiamos un tramo de nuestro canvas
 }
 
+function clearall(){
+    listStn[actual].splice(0) // limpiamos los elementos de la lista asociados a nuestra actual estacion
+}
+
+function purgeall(){
+    for (var j = 0 ; j<listStn.length; j++){
+        listStn[j].splice(0) //limpiamos los elementos de la lista
+    }
+}
 setInterval(() => {
     x = (fIndex/(fTotal / hRes))
     ctx.clearRect(0,30,myCanvas.width, myCanvas.height);
     drawTime();
+    drawMarks();
     moveLine();
 }, 500);
 
@@ -84,8 +94,18 @@ function changeFps(){
 	});
 }
 function mark(){
-    ctx.beginPath();
-    ctx.fillStyle = "green";
-    ctx.arc(x, 20, 10, 0, 2 * Math.PI);
-    ctx.fill();
+    listStn[actual].push(x) // guardamos pos
+}
+function drawMarks(){
+    for (var j = 0 ; j<listStn.length; j++){  // recorremos la lista, y pintamos las marcas en las pos guardadas
+        if (actual == j){
+            clearRC()
+            for (var h = 0; h<listStn[j].length;h++){
+                ctx.beginPath();
+                ctx.fillStyle = "green";
+                ctx.arc(listStn[j][h], 20, 10, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+    }
 }

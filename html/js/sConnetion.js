@@ -4,8 +4,10 @@ var uri_station = "system/stations";
 var uri_parameters = "";
 var fIndex = 0;
 var fTotal = 0;
+var listStn = []; // listado de pos de marcas en base a su estacion
 var timeout;
 var time_line = document.getElementById("timeline")
+var actual; // valor numero de la estacion actual
 
 function getInfo() {
 	fetch(target, { 
@@ -28,20 +30,22 @@ function getInfo() {
 $.getJSON(uri_station, function(data) {
 	var myDiv = document.getElementById("buttons_station")
 	for (var i=0;i<data.station.length;i++){
+		listStn.push([]); // creacion de nuevos espacios dentro de la lista dependiendo de la cantidad de estaciones
 		let btn = document.createElement("button")
 		var subDiv = document.createElement("div")
 		var br = document.createElement("br")
 		btn.innerHTML = data.station[i].id;
+		btn.value = i
 		btn.className ="btn btn-outline-warning station";
 		btn.dataset.target= "system/" + data.station[i].id + "/" + data.station[i].dhs[0].id;
-		btn.onclick = function(){
+		btn.onclick = function(e){
 			target = btn.dataset.target;
 			parlist();
 			getInfo();
+			actual = e.target.value; // actualizacion de actual
 		}
 		subDiv.className ="btn-group-lg";
 		subDiv.id = data.station[i].id +" div"
-
 		myDiv.appendChild(subDiv);
 		subDiv.appendChild(btn);
 		subDiv.appendChild(br);
