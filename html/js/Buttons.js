@@ -15,7 +15,34 @@ $('.pcmd').on('click',function(e){
 
 $('.mode').on('click',function(e){
     mode = e.target.dataset.target;
+    fetch(target, { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cmd: e.target.dataset.cmd, par:e.target.dataset.par}),
+    })
+    .then(response => response.json())
+    .then(data => {console.log('Success:', data);
+    })
+    .catch((error) => {console.error('Error:', error);
+	});
 });
+
+$('.shutdown').on('click',function(e){
+    fetch("op/sys", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cmd: e.target.dataset.cmd, par:""}),
+    })
+    .then(response => response.json())
+    .then(data => {console.log('Success:', data);
+    })
+    .catch((error) => {console.error('Error:', error);
+	});
+})
 
 function ChangeValue(e){
     var val = e.target.value;

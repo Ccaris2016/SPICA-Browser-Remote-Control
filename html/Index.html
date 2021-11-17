@@ -24,6 +24,7 @@
                 <a class="nav-link mode" data-bs-toggle="pill" data-target="/record" data-cmd="mode" data-par="record"href="#">Record</a>
             </li>
         </ul>
+        <button type="button" class="btn btn-danger shutdown" data-cmd="terminate">Terminate</button>
     </nav>
     <div class="row">
         <div  class="col-sm bg-dark" style="overflow-y: scroll; height: 200px;" width="100">
@@ -47,7 +48,7 @@
             <br>
             <div class="btn-group-lg" role="group">
                 <button type="button" href="#" onclick="mark()" class="btn btn-outline-warning">Mark</button>
-                <button type="button" href="#" onclick="clear()" class="btn btn-outline-warning">Delete</button>
+                <button type="button" href="#" onclick="clearRC()" class="btn btn-outline-warning">Clear All</button>
             </div>
             <br>
         </div>

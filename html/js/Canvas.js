@@ -14,8 +14,6 @@ var PIXEL_RATIO = (function () {
 
     return dpr / bsr;
 })();
-
-
 createHiDPICanvas = function(w, h, ratio) {
     if (!ratio) { ratio = PIXEL_RATIO; }
     var can = document.createElement("canvas");
@@ -26,15 +24,18 @@ createHiDPICanvas = function(w, h, ratio) {
     can.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0);
     return can;
 }
-
 var div_row = document.getElementById("div_canvas")
 var myCanvas = createHiDPICanvas(hRes, wRes);
 div_row.appendChild(myCanvas)
 var ctx = myCanvas.getContext("2d");
 var elemLeft = myCanvas.offsetLeft
 
+function clearRC(){
+    ctx.clearRect(0,0,myCanvas.width,30)
+}
+
 setInterval(() => {
-    x = (fIndex/fTotal)*(hRes-11-11) 
+    x = (fIndex/(fTotal / hRes))
     ctx.clearRect(0,30,myCanvas.width, myCanvas.height);
     drawTime();
     moveLine();
@@ -59,7 +60,6 @@ myCanvas.addEventListener('click', function(event) {
     point = (proporcion*100)/fTotal 
     changeFps();
 }, false);
-
 function moveLine(){
     ctx.beginPath();
     ctx.fillStyle = "red";
@@ -67,7 +67,6 @@ function moveLine(){
     ctx.fillRect(x,50,5,400);
     ctx.fill();
 }
-
 function changeFps(){
 	fetch(target+mode, {
 		
@@ -84,15 +83,9 @@ function changeFps(){
 	.catch((error) => {console.error('Error:', error);
 	});
 }
-
 function mark(){
     ctx.beginPath();
     ctx.fillStyle = "green";
     ctx.arc(x, 20, 10, 0, 2 * Math.PI);
     ctx.fill();
-}
-function clear(){
-    ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
-    ctx.beginPath();
-    ctx.fill(); 
 }
