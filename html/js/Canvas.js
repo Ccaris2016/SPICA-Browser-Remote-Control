@@ -1,6 +1,5 @@
 var hRes = $(this).width()
 var wRes = 150
-var x = (fIndex/fTotal)*(hRes-11-11) // fps -> pixel
 var point = 0;
 
 var PIXEL_RATIO = (function () {
@@ -29,6 +28,7 @@ var myCanvas = createHiDPICanvas(hRes, wRes);
 div_row.appendChild(myCanvas)
 var ctx = myCanvas.getContext("2d");
 var elemLeft = myCanvas.offsetLeft
+var x = (fIndex/fTotal)*(hRes+elemLeft+elemLeft) // fps -> pixel
 
 function clearRC(){
     ctx.clearRect(0,0,myCanvas.width,30) // limpiamos un tramo de nuestro canvas
@@ -66,7 +66,7 @@ function drawTime(){
 }
 myCanvas.addEventListener('click', function(event) {
     x = event.pageX - elemLeft
-    var proporcion = ((x-11)/(hRes-11-11))*fTotal // pixel -> fps
+    var proporcion = ((x+elemLeft)/(hRes+elemLeft+elemLeft))*fTotal // pixel -> fps
     point = (proporcion*100)/fTotal 
     changeFps();
 }, false);

@@ -13,6 +13,22 @@ $('.pcmd').on('click',function(e){
 	});
 });
 
+$('.rw').on('click',function(e){
+    fetch(target+mode, { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cmd: e.target.dataset.cmd, par: fTotal-1}),
+    })
+    .then(response => response.json())
+    .then(data => {console.log('Success:', data);
+    })
+    .catch((error) => {console.error('Error:', error);
+	});
+});
+
+
 $('.mode').on('click',function(e){
     mode = e.target.dataset.target;
     fetch(target, { 
