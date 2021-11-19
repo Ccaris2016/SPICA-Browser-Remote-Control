@@ -28,7 +28,6 @@ $('.rw').on('click',function(e){
 	});
 });
 
-
 $('.mode').on('click',function(e){
     mode = e.target.dataset.target;
     fetch(target, { 

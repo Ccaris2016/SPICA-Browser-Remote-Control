@@ -34,7 +34,10 @@ $.getJSON(uri_station, function(data) {
 		let btn = document.createElement("button")
 		var subDiv = document.createElement("div")
 		var br = document.createElement("br")
-		btn.innerHTML = data.station[i].id;
+		var image = document.createElement("img")
+		image.src =   "system/" + data.station[i].id + "/" + data.station[i].dhs[0].id + "/image"
+		image.style = "width: 20%;height: 20%;"
+		//btn.innerHTML = data.station[i].id;
 		btn.value = i
 		btn.className ="btn btn-outline-warning station";
 		btn.dataset.target= "system/" + data.station[i].id + "/" + data.station[i].dhs[0].id;
@@ -48,6 +51,7 @@ $.getJSON(uri_station, function(data) {
 		subDiv.id = data.station[i].id +" div"
 		myDiv.appendChild(subDiv);
 		subDiv.appendChild(btn);
+		btn.appendChild(image);
 		subDiv.appendChild(br);
 	}
 });

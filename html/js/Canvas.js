@@ -2,6 +2,7 @@ var hRes = $(this).width()
 var wRes = 150
 var point = 0;
 
+
 var PIXEL_RATIO = (function () {
     var ctx = document.createElement("canvas").getContext("2d"),
         dpr = window.devicePixelRatio || 1,
@@ -33,11 +34,9 @@ var x = (fIndex/fTotal)*(hRes+elemLeft+elemLeft) // fps -> pixel
 function clearRC(){
     ctx.clearRect(0,0,myCanvas.width,30) // limpiamos un tramo de nuestro canvas
 }
-
 function clearall(){
     listStn[actual].splice(0) // limpiamos los elementos de la lista asociados a nuestra actual estacion
 }
-
 function purgeall(){
     for (var j = 0 ; j<listStn.length; j++){
         listStn[j].splice(0) //limpiamos los elementos de la lista
@@ -49,8 +48,8 @@ setInterval(() => {
     drawTime();
     drawMarks();
     moveLine();
-}, 500);
-
+    draw_imagen();
+}, 1000);
 function drawTime(){
     ctx.fillStyle = "grey";
     ctx.beginPath();
@@ -73,7 +72,6 @@ myCanvas.addEventListener('click', function(event) {
 function moveLine(){
     ctx.beginPath();
     ctx.fillStyle = "red";
-    ctx.arc(x+2, 50, 10, 0, 2 * Math.PI);
     ctx.fillRect(x,50,5,400);
     ctx.fill();
 }
@@ -108,4 +106,9 @@ function drawMarks(){
             }
         }
     }
+}
+function draw_imagen(){
+    var img = new Image()
+    img.src = target+"/image"
+    ctx.drawImage(img,x-40,40,80,40)
 }
