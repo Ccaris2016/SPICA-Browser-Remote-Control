@@ -46,6 +46,7 @@ $.getJSON(uri_station, function(data) {
 			parlist();
 			getInfo();
 			actual = e.target.value; // actualizacion de actual
+			linkimg();
 		}
 		subDiv.className ="btn-group-lg";
 		subDiv.id = data.station[i].id +" div"

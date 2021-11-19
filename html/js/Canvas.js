@@ -1,6 +1,8 @@
 var hRes = $(this).width()
 var wRes = 150
 var point = 0;
+var img = new Image()
+var toogle
 
 
 var PIXEL_RATIO = (function () {
@@ -68,10 +70,12 @@ myCanvas.addEventListener('click', function(event) {
     var proporcion = ((x+elemLeft)/(hRes+elemLeft+elemLeft))*fTotal // pixel -> fps
     point = (proporcion*100)/fTotal 
     changeFps();
+    img.src = target+"/image?"+ new Date().getTime()
 }, false);
 function moveLine(){
     ctx.beginPath();
     ctx.fillStyle = "red";
+    ctx.arc(x+2, 50, 10, 0, 2 * Math.PI);
     ctx.fillRect(x,50,5,400);
     ctx.fill();
 }
@@ -108,7 +112,9 @@ function drawMarks(){
     }
 }
 function draw_imagen(){
-    var img = new Image()
-    img.src = target+"/image"
+    console.log(img.src)
     ctx.drawImage(img,x-40,40,80,40)
+}
+function linkimg(){
+    img.src = target+"/image?"
 }
